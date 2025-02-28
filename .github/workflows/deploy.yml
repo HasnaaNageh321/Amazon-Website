@@ -16,9 +16,14 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v3
+        with:
+          node-version: 20 # تأكد من استخدام نفس إصدار Node الذي تستخدمه محليًا
 
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+      - name: Clean and install dependencies
+        run: |
+          rm -rf node_modules package-lock.json # حذف الملفات القديمة
+          npm install -g npm@latest             # تحديث npm
+          npm install                           # تثبيت جميع الحزم من جديد
 
       - name: Build project
         run: npm run build
